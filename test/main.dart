@@ -24,11 +24,11 @@ void main() {
     });
 
     test('days in year', () {
-      expect(_hijriDate.lengthOfYear(year: 1440), equals(355));
+      expect(HijriCalendar.getLengthOfYear(1440), equals(355));
     });
 
     test('days in month', () {
-      expect(_hijriDate.getDaysInMonth(1440, 11), equals(29));
+      expect(HijriCalendar.getDaysInMonth(1440, 11), equals(29));
     });
     test('format', () {
       expect(_hijriDate.toFormat("DDDD MM yyyy dd"),
@@ -115,21 +115,20 @@ void main() {
 
   group('Gregorian', () {
     test('convert Hijri to Gregorian', () {
-      expect(_hijriDate.hijriToGregorian(1439, 10, 12),
+      expect(HijriCalendar.hijriToGregorian(1439, 10, 12),
           equals(DateTime(2018, 06, 26, 00, 00, 00, 000)));
     });
   });
 
   group('adjustment', () {
-    HijriCalendar _adjCal = HijriCalendar.now();
+    HijriCalendar _adjCal = HijriCalendar.gregorianToHijri(2020, 8, 20);
     test('without adjustment produces the correct date', () {
-      _adjCal.gregorianToHijri(2020, 8, 20);
       expect(_adjCal.toList(), equals([1442, 1, 1]));
     });
     test('with adjustment produced the correct date', () {
       //year 1441, month 12 ((1441 - 1) * 12 + 12) has 30 days instead of 29
-      _adjCal.setAdjustments({17292: 59083});
-      _adjCal.gregorianToHijri(2020, 8, 20);
+      HijriCalendar.setAdjustments({17292: 59083});
+      _adjCal = HijriCalendar.gregorianToHijri(2020, 8, 20);
       expect(_adjCal.toList(), equals([1441, 12, 30]));
     });
   });

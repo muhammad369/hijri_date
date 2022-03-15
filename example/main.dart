@@ -30,9 +30,9 @@ void main() {
   print(_checkDate.fullDate()); // false -> This month is only 29 days
 
   //From Ummalqura to Gregorian
-  var gDate = HijriCalendar.now();
+  var gDate = HijriCalendar.hijriToGregorian(1440, 4, 19).toString();
   print(
-      gDate.hijriToGregorian(1440, 4, 19).toString()); //1994-12-29 00:00:00.000
+      gDate); //1994-12-29 00:00:00.000
 
   //Format
   var _format = HijriCalendar.now();
@@ -53,7 +53,7 @@ void main() {
   var adjCal = HijriCalendar.now();
   var adj = Map<int, int>();
   adj[17292] = 59083; // 30 days instead of 29
-  adjCal.setAdjustments(adj);
-  adjCal.gregorianToHijri(2020, 8, 20);
+  HijriCalendar.setAdjustments(adj);
+  adjCal = HijriCalendar.gregorianToHijri(2020, 8, 20);
   print("adjusted ${adjCal.fullDate()}");
 }
