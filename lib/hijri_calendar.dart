@@ -34,10 +34,10 @@ class HijriCalendar {
   // Consider switching to the factory pattern
   factory HijriCalendar.setLocal(String locale) {
     language = locale;
-    return HijriCalendar();
+    return HijriCalendar.now();
   }
 
-  HijriCalendar();
+  HijriCalendar(this.hYear, this.hMonth, this.hDay);
 
   HijriCalendar.fromDate(DateTime date) {
     gregorianToHijri(date.year, date.month, date.day);
@@ -271,18 +271,35 @@ class HijriCalendar {
   }
 
   bool isBefore(int year, int month, int day) {
-    return hijriToGregorian(hYear, hMonth, hDay).millisecondsSinceEpoch <
-        hijriToGregorian(year, month, day).millisecondsSinceEpoch;
+    return hYear < year
+        ? true
+        : hYear > year
+            ? false
+            : hMonth < month
+                ? true
+                : hMonth > month
+                    ? false
+                    : hDay < day
+                        ? true
+                        : false;
   }
 
   bool isAfter(int year, int month, int day) {
-    return hijriToGregorian(hYear, hMonth, hDay).millisecondsSinceEpoch >
-        hijriToGregorian(year, month, day).millisecondsSinceEpoch;
+    return hYear > year
+        ? true
+        : hYear < year
+            ? false
+            : hMonth > month
+                ? true
+                : hMonth < month
+                    ? false
+                    : hDay > day
+                        ? true
+                        : false;
   }
 
   bool isAtSameMomentAs(int year, int month, int day) {
-    return hijriToGregorian(hYear, hMonth, hDay).millisecondsSinceEpoch ==
-        hijriToGregorian(year, month, day).millisecondsSinceEpoch;
+    return (hYear == year) && (hMonth == month) && (hDay == day);
   }
 
   void setAdjustments(Map<int, int> adj) {

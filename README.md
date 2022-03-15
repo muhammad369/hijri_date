@@ -44,10 +44,7 @@ Hijri Calendar Converter
 ##### Check if date is valid
 ```dart
   //
-  var _check_date = HijriCalendar();
-  _check_date.hYear = 1439;
-  _check_date.hMonth = 11;
-  _check_date.hDay = 30;
+  var _check_date = HijriCalendar(1439, 11, 30);
   print(_check_date.isValid()); // false -> This month is only 29 days
 ```
 ##### From Ummalqura to Gregorian

@@ -7,10 +7,7 @@ import 'package:test/test.dart';
 import '../lib/hijri_calendar.dart';
 
 void main() {
-  HijriCalendar _hijriDate = HijriCalendar();
-  _hijriDate.hYear = 1439;
-  _hijriDate.hMonth = 10;
-  _hijriDate.hDay = 30;
+  HijriCalendar _hijriDate = HijriCalendar(1439, 10, 30);
 
   // _hijriDate.currentLocale = 'ar';
   group('Hijri', () {
@@ -124,7 +121,7 @@ void main() {
   });
 
   group('adjustment', () {
-    HijriCalendar _adjCal = HijriCalendar();
+    HijriCalendar _adjCal = HijriCalendar.now();
     test('without adjustment produces the correct date', () {
       _adjCal.gregorianToHijri(2020, 8, 20);
       expect(_adjCal.toList(), equals([1442, 1, 1]));
